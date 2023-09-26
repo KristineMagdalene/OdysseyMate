@@ -146,11 +146,11 @@ public class AddPlanFragment extends Fragment {
         String currentDate = getCurrentDate();
 
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("NotifTitle", title);
-        hashMap.put("NotifDescription", description);
-        hashMap.put("imageNotif", imgUrl);
-        hashMap.put("currentDateNotif", currentDate);
-        hashMap.put("currentTimeNotif", currentTime);
+        hashMap.put("title", title);
+        hashMap.put("description", description);
+        hashMap.put("image", imgUrl);
+        hashMap.put("currentDate", currentDate);
+        hashMap.put("currentTime", currentTime);
         hashMap.put("id", String.valueOf(timestamp));
 
         database.getReference("Plans")
