@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 
 public class HomeFragment extends Fragment {
@@ -81,20 +82,23 @@ public class HomeFragment extends Fragment {
                     // Data as model
                     PlanModel model = createPlanModelFromDataSnapshot(data);
 
-                    // Add to array
-                    planArrayList.add(model);
+                    // Add to array at the beginning
+                    planArrayList.add(0, model);
+
                 }
 
-                requireActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Do UI work here
-                        adapter = new PlanAdapter(ItemRowBinding.inflate(getLayoutInflater()),requireContext(), planArrayList);
-                        binding.recyclerview.setHasFixedSize(true);
-                        binding.recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-                        binding.recyclerview.setAdapter(adapter);
-                    }
-                });
+                if (isAdded() && getActivity() != null) {
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            adapter = new PlanAdapter(ItemRowBinding.inflate(getLayoutInflater()), requireContext(), planArrayList);
+                            binding.recyclerview.setHasFixedSize(true);
+                            binding.recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+                            binding.recyclerview.setAdapter(adapter);
+                        }
+                    });
+                }
 
                 // Set up adapter
             }

@@ -44,5 +44,12 @@ public class PlanModel {
     }
 
 
+    public void setTitle(String newTitle) {
+        this.title = newTitle;
+    }
+
+    public void setDescription(String newDescription) {
+        this.description = newDescription;
+    }
 
 }
