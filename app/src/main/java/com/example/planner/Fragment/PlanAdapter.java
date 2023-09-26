@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -77,14 +78,13 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolderPlan
             }
         });
 
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(context, EventDetailActivity.class);
-//                intent.putExtra("id", id);
-//                context.startActivity(intent);
-//            }
-//        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ItemDetailDialogFragment dialogFragment = new ItemDetailDialogFragment(title, description,imageselected);
+                dialogFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), "ItemDetailDialogFragment");
+            }
+        });
     }
 
     @Override
