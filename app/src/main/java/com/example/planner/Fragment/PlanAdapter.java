@@ -14,18 +14,23 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.planner.PlanModel;
 import com.example.planner.R;
 import com.example.planner.databinding.ItemRowBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolderPlan>{
     private ItemRowBinding binding;
@@ -121,11 +126,12 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolderPlan
                             // Dialog for confirmation
                             AlertDialog.Builder deleteBuilder = new AlertDialog.Builder(context);
                             deleteBuilder.setTitle("Delete")
-                                    .setMessage("Are you sure you want to delete this event?")
+                                    .setMessage("Are you sure you want to delete this?")
                                     .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface a, int d) {
                                             Toast.makeText(context, "Deleting...", Toast.LENGTH_SHORT).show();
+                                            uploadToHistory(model);
                                             deleteEvent(model, holder);
                                         }
                                     })
@@ -214,6 +220,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolderPlan
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+
                         Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -228,5 +235,30 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolderPlan
     @Override
     public int getItemCount() {
         return planArrayList.size();
+    }
+    private void uploadToHistory(PlanModel model) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        String id = model.getId();
+        long timestamp = System.currentTimeMillis();
+
+        String title = model.getTitle(); // Get title from the model
+        String desc = model.getDescription();
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("title", title);
+        hashMap.put("description", desc);
+        database.getReference("History")
+                .child(String.valueOf(timestamp))
+                .setValue(hashMap)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+
+
+                        } else {
+                        }
+                    }
+                });
     }
 }
