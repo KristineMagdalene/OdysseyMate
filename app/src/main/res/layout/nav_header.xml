@@ -5,7 +5,7 @@
     android:layout_height="150dp"
     android:padding="10dp"
     android:orientation="vertical"
-    android:background="@color/four"
+    android:background="@color/two"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     >
 
