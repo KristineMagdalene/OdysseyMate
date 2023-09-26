@@ -171,19 +171,13 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolderPlan
                 // Update the model (if needed)
                 model.setTitle(newTitle);
                 model.setDescription(newDescription);
-
-                // Perform the update in the database (you'll need to implement this)
                 updateEventInDatabase(model);
 
                 // Notify the adapter that data has changed
                 notifyDataSetChanged();
-
-                // Dismiss the dialog
                 dialog.dismiss();
             }
         });
-
-        // Handle "Cancel" button click
         editBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -196,10 +190,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.ViewHolderPlan
     }
 
     private void updateEventInDatabase(PlanModel model) {
-        // Assuming you have a unique identifier for each event
         String id = model.getId();
-
-        // Get a reference to the "Plans" node in the database
         DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Plans");
 
         // Get a reference to the specific event using its ID

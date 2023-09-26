@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.planner.Fragment.HomeFragment;
+import com.example.planner.Fragment.Notification;
 import com.example.planner.R;
 import com.example.planner.databinding.FragmentAddPlanBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -167,6 +169,8 @@ public class AddPlanFragment extends Fragment {
                             fragmentTransaction.replace(R.id.fragment_container, homeFragment); // Replace "fragment_container" with your actual container ID
                             fragmentTransaction.commit();
                             Toast.makeText(getActivity(), "Plan Added", Toast.LENGTH_SHORT).show();
+                            Notification notificationHelper = new Notification();
+                            notificationHelper.sendNotification(getActivity(), "New Task Added", description);
 
                         } else {
                             Toast.makeText(getActivity(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -188,5 +192,26 @@ public class AddPlanFragment extends Fragment {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         return formatter.format(currentDateObject);
     }
+    private void onBackPressed() {
+        // Navigate back to HomeFragment
+        HomeFragment homeFragment = new HomeFragment();
+        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, homeFragment);
+        fragmentTransaction.commit();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Override the back button press
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                // Handle back button press
+                onBackPressed();
+            }
+        });
+    }
 }

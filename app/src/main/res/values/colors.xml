@@ -4,8 +4,10 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="one">#326789</color>
+    <color name="homebg">#24293E</color>
+    <color name="card">#3A4260</color>
     <color name="two">#78A6C8</color>
     <color name="three">#E9EEF2</color>
-    <color name="four">#E65C4F</color>
+    <color name="four">#4F86E6</color>
     <color name="five">#5B8291</color>
 </resources>

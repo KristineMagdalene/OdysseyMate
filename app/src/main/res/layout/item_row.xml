@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
+
     android:layout_height="wrap_content"
     android:background="@android:color/transparent">
 
@@ -22,7 +23,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:background="@color/white"
+            android:background="@color/card"
             android:layout_height="match_parent">
 
             <TextView
@@ -34,7 +35,7 @@
                 android:maxLines="2"
                 android:paddingStart="5dp"
                 android:text="Title"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toStartOf="@+id/btnMore"
@@ -49,7 +50,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tvTitle"
                 app:srcCompat="@drawable/baseline_more_vert_24"
-                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
+                app:tint="@color/white" />
 
             <TextView
                 android:id="@+id/readMore"
@@ -57,10 +59,10 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:text="read more.."
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/imgPicture" />
 
             <TextView
                 android:id="@+id/textViewNoteTime"
@@ -69,9 +71,10 @@
                 android:layout_below="@+id/textViewNoteDate"
                 android:padding="5dp"
                 android:text="1:00"
-                android:textColor="@color/black"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/white"
                 android:textSize="15sp"
-                app:layout_constraintStart_toEndOf="@+id/textViewNoteDate"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
 
             <TextView
@@ -80,9 +83,10 @@
                 android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:text="20/2020"
-                android:textColor="@color/black"
+                android:layout_marginEnd="10dp"
+                android:textColor="@color/white"
                 android:textSize="15sp"
-                app:layout_constraintStart_toEndOf="@+id/imgPicture"
+                app:layout_constraintEnd_toStartOf="@+id/textViewNoteTime"
                 app:layout_constraintTop_toTopOf="@+id/textViewNoteTime" />
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -104,7 +108,7 @@
                 android:maxLines="1"
                 android:paddingStart="5dp"
                 android:text="Description"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imgPicture"
