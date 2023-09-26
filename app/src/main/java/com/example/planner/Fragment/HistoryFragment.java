@@ -38,6 +38,30 @@ public class HistoryFragment extends Fragment {
         binding = FragmentHistoryBinding.inflate(getLayoutInflater());
         return binding.getRoot();
     }
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("planArrayList", planArrayList);
+    }
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            planArrayList = (ArrayList<HistoryModel>) savedInstanceState.getSerializable("planArrayList");
+
+            if (isAdded() && getActivity() != null) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter = new HistoryAdapter(ItemRowHistoryBinding.inflate(getLayoutInflater()), requireContext(), planArrayList);
+                        binding.recyclerview.setHasFixedSize(true);
+                        binding.recyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+                        binding.recyclerview.setAdapter(adapter);
+                    }
+                });
+            }
+        }
+    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
